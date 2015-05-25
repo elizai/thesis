@@ -2,22 +2,29 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-
+  
 \usepackage[romanian]{babel}
 \usepackage{combelow}
 \usepackage{newunicodechar}
-
-\usepackage[pdftex]{graphicx}
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-
 \newunicodechar{Ș}{\cb{S}}
 \newunicodechar{ș}{\cb{s}}
 \newunicodechar{Ț}{\cb{T}}
 \newunicodechar{ț}{\cb{t}}
 
+\usepackage[pdftex]{graphicx}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{quotchap}
+
+\setcounter{chapter}{-1}
+\setcounter{section}{-1}
+\setcounter{subsection}{-1}
+\setcounter{footnote}{-1}
+
 \begin{document}
 
 \include{cover}
 \include{contents}
+\include{chap1}
 
 \end{document}
