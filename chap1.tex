@@ -16,7 +16,7 @@ dezvoltatori să poată crea astfel de aplicații într-un mod rapid și eficien
 iar uneltele pe care le au la dispoziție au fost reînnoite permanet cu altele
 mai bune.
 
-Arhitectura web clasică este una client server, în care clientul (browserul)
+Arhitectura web clasică este una client-server, în care clientul (browserul)
 cere o pagină folosind protocolul HTTP, serverul o crează dinamic folosind un 
 limbaj de programare server-side (C\#, Java, Python, PHP, Scala etc.) și o trimite 
 browserului pentru afișare. Prin HTTP, conexiunile sunt întotdeauna inițiate 
@@ -35,10 +35,13 @@ dar denumirea a rămas.},
 o tehnică ce permite browserului să facă cereri asincrone către server după ce 
 pagina a fost încărcată, prin intermediul JavaScript.
 
-Următoarea etapă în acest proces incremental a fost SPA - Single-Page Application.
-Într-un SPA, tot codule HTML, JavaScript și CSS este fie descărcat în momentul
-în care pagina este încărcată prima dată, fie în mod asincron, de obicei ca
-răspuns la acțiunile utilizatorului. SPA oferă utilizatorului senzația unei
+Următoarea etapă în acest proces incremental a fost crearea de 
+\emph{Single-Page Application}\footnote{http://en.wikipedia.org/wiki/Single-page\_application},
+denumite în continuare SPA. Într-un SPA, tot codul HTML, JavaScript și CSS este
+fie descărcat în momentul în care pagina este încărcată prima dată, fie în mod asincron, de obicei ca
+răspuns la acțiunile utilizatorului.
+
+SPA oferă utilizatorului senzația unei
 aplicații fluide și poate uneori să ofere iluzia că aceasta răspunde la acțiuni
 imediat, fără să mai aștepte răspunsul serverului. Vom vedea în aplicația
 construită pentru această lucrare, de exemplu, că atunci când utilizatorul
@@ -49,40 +52,11 @@ poate eșua, caz în care un mesaj de eroare este afișat și resursa reapare î
 dar în mai mult de 90\% din cazuri, când totul merge bine, utilizatorul are
 senzația că resursa este ștearsă instant.
 
-\section{Modalități de dezvoltare de SPA}
+Două companii foarte mari, Google și Facebook,
+au creat fiecare  câte un framework pentru crearea de SPA: AngularJS și React,
+confirmând importanța acestui tip de aplicații. Experiență fluidă pentru utilizator, împreună cu alte avantaje pe care le
+vom discuta în capitolul următor au făcut ca SPA să crească foarte mult în popularitate
+în ultimii ani.
 
-\subsection{Framework-uri JavaScript}
 
-Anumite framework-uri JavaScript pentru creare de aplicații web, cum ar fi
-AngularJS\footnote{https://angularjs.org/},
-Ember.js\footnote{http://emberjs.com/},
-React\footnote{http://facebook.github.io/react/} și
-Backbone.js\footnote{http://backbonejs.org/},
-și-au propus să ușureze dezvoltarea
-de aplicații web SPA.
-
-Printre avantajele folosirii unui framework unui astfel
-de framework, enumerăm:
-\begin{itemize}
-  \item Aceste framework-uri oferă de obicei și posibilitatea organizării codului
-  folosind MVC\footnote{Model View Controller}. Într-un framework JavaScript MVC,
-  view-ul sunt reprezentate de șabloane HTML, controller-ul este un obiect JS
-  care se ocupă de comunicarea dintre view și model, iar modelul este un obiect JS
-  care, de obicei, mapează obiectele din baza de date de pe server la obiecte
-  stocate în client. Un proiect MVC este mai ușor de navigat, este mai ușor
-  de modificat și mai ușor de înțeles. De asemenea, colaborarea dintre
-  designer și programator este mai ușoară cu un framework MVC.
-  \item Viteza de dezvoltare.
-  \item Ușurința de dezvoltare.
-  \item Diminuarea codului necesar a fi scris.
-\end{itemize}
-
-Bineînțeles, există și dezavantaje:
-\begin{itemize}
-  \item Necesitatea învățării unei tehnologii noi. Ce este și mai trist, este
-  că foarte posibil această tehnologie va fi depășită în doar câțiva ani.
-  \item Unele framework-uri (AngularJS) au o curbă de învățare abruptă.
-\end{itemize}
-
-\subsection{}
 
