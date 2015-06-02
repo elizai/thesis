@@ -1,0 +1,62 @@
+\begin{savequote}[75mm]
+Internetul este un amalgam de tehnologii, legate împreună cu bandă adezivă,
+sfoară și gumă de mestecat. Nu este ceva proiectat într-un mod elegant,
+pentru că este un organism în creștere, nu o mașinărie construită
+cu intenție.
+\qauthor{Mattias Petter Johansson (Programator la Spotify)}
+\end{savequote}
+
+\chapter{Introducere}
+
+Internetul a evoluat continuu și a ajuns în punctul în care poate face o mulțime
+de lucruri pentru care nici măcar nu a fost creat. Aproape toți programatorii din
+ziua de azi sunt programatori web, iar aplicațiile web seamănă tot mai mult cu 
+aplicațiile desktop. În aceste condiții, a devenit foarte important pentru
+dezvoltatori să poată crea astfel de aplicații într-un mod rapid și eficient, 
+iar uneltele pe care le au la dispoziție au fost reînnoite permanet cu altele
+mai bune.
+
+Arhitectura web clasică este una client-server, în care clientul (browserul)
+cere o pagină folosind protocolul HTTP, serverul o crează dinamic folosind un 
+limbaj de programare server-side (C\#, Java, Python, PHP, Scala etc.) și o trimite 
+browserului pentru afișare. Prin HTTP, conexiunile sunt întotdeauna inițiate 
+de către client, care cere pagina web.
+
+Această arhitectură este limitată. Să ne imaginăm de exemplu că avem o pagină
+web care afișează în timp real scorurile unor partide de fotbal. După încărcarea
+paginii, server-ul nu-i poate comunica browserului că un scor s-a schimbat.
+Browserul va afișa scorurile neactualizate până când utilizatorul reîmprospătează
+pagina.
+
+Această problemă a fost rezolvată prin intermediul
+AJAX\footnote{Asynchronous JavaScript and XML; în aplicațiile moderne
+se utilizează cu preferință JSON (JavasScript Object Notation) în loc de XML,
+dar denumirea a rămas.},
+o tehnică ce permite browserului să facă cereri asincrone către server după ce 
+pagina a fost încărcată, prin intermediul JavaScript.
+
+Următoarea etapă în acest proces incremental a fost crearea de 
+\emph{Single-Page Application}\footnote{http://en.wikipedia.org/wiki/Single-page\_application},
+denumite în continuare SPA. Într-un SPA, tot codul HTML, JavaScript și CSS este
+fie descărcat în momentul în care pagina este încărcată prima dată, fie în mod asincron, de obicei ca
+răspuns la acțiunile utilizatorului.
+
+SPA oferă utilizatorului senzația unei
+aplicații fluide și poate uneori să ofere iluzia că aceasta răspunde la acțiuni
+imediat, fără să mai aștepte răspunsul serverului. Vom vedea în aplicația
+construită pentru această lucrare, de exemplu, că atunci când utilizatorul
+dorește ștergerea unei resurse, această resursă este întâi înlăturată din UI,
+apoi o cerere asincronă îi spune serverului să șteargă resursa din baza de date.
+Desigur, pentru că se comunică cu serverul prin TCP/IP, această comunicare
+poate eșua, caz în care un mesaj de eroare este afișat și resursa reapare în UI,
+dar în mai mult de 90\% din cazuri, când totul merge bine, utilizatorul are
+senzația că resursa este ștearsă instant.
+
+Două companii foarte mari, Google și Facebook,
+au creat fiecare  câte un framework pentru crearea de SPA: AngularJS și React,
+confirmând importanța acestui tip de aplicații. Experiență fluidă pentru utilizator, împreună cu alte avantaje pe care le
+vom discuta în capitolul următor au făcut ca SPA să crească foarte mult în popularitate
+în ultimii ani.
+
+
+

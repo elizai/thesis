@@ -1,62 +1,129 @@
 \begin{savequote}[75mm]
-Internetul este un amalgam de tehnologii, legate împreună cu bandă adezivă,
-sfoară și gumă de mestecat. Nu este ceva proiectat într-un mod elegant,
-pentru că este un organism în creștere, nu o mașinărie construită
-cu intenție.
-\qauthor{Mattias Petter Johansson (Programator la Spotify)}
+Cândva oamenii credeau că internetul este o altă lume, dar acum realizează
+că este o unealtă pe care o folosim în lumea noastră.
+\qauthor{Tim Berners-Lee, inventatorul \emph{www}-ului}
 \end{savequote}
 
-\chapter{Introducere}
+\chapter{Aplicații SPA: moduri de dezvoltare}
+În acest capitol vom enumera diferite moduri în care se pot dezvolta SPA și
+vom discuta avantajele și dezavantajele acestor moduri.
 
-Internetul a evoluat continuu și a ajuns în punctul în care poate face o mulțime
-de lucruri pentru care nici măcar nu a fost creat. Aproape toți programatorii din
-ziua de azi sunt programatori web, iar aplicațiile web seamănă tot mai mult cu 
-aplicațiile desktop. În aceste condiții, a devenit foarte important pentru
-dezvoltatori să poată crea astfel de aplicații într-un mod rapid și eficient, 
-iar uneltele pe care le au la dispoziție au fost reînnoite permanet cu altele
-mai bune.
+\section{Framework-uri MVC JavaScript}
+Anumite framework-uri JavaScript pentru creare de aplicații web, cum ar fi
+Backbone.js\footnote{http://backbonejs.org/},
+AngularJS\footnote{https://angularjs.org/},
+Ember.js\footnote{http://emberjs.com/},
+React\footnote{http://facebook.github.io/react/} și
+Meteor\footnote{https://www.meteor.com/}
+și-au propus să ușureze dezvoltarea de aplicații web SPA.
 
-Arhitectura web clasică este una client-server, în care clientul (browserul)
-cere o pagină folosind protocolul HTTP, serverul o crează dinamic folosind un 
-limbaj de programare server-side (C\#, Java, Python, PHP, Scala etc.) și o trimite 
-browserului pentru afișare. Prin HTTP, conexiunile sunt întotdeauna inițiate 
-de către client, care cere pagina web.
+Aceste framework-uri oferă de obicei și posibilitatea organizării codului
+folosind șablonul arhitectural 
+\emph{Model–view–controller}\footnote{http://en.wikipedia.org/wiki/Model-view-controller}
+(MVC). MVC a fost
+folosit inițial în dezvoltarea aplicațiilor desktop, dar s-a dovedit mai târziu
+util și pentru dezvoltarea părții de back-end (server-side) a aplicațiilor web.
+Abia de curând el a fost adoptat și pe front-end (client-side).
 
-Această arhitectură este limitată. Să ne imaginăm de exemplu că avem o pagină
-web care afișează în timp real scorurile unor partide de fotbal. După încărcarea
-paginii, server-ul nu-i poate comunica browserului că un scor s-a schimbat.
-Browserul va afișa scorurile neactualizate până când utilizatorul reîmprospătează
-pagina.
+MVC decuplează datele și logica aplicației de prezentare (interfața cu utilizatorul). Într-un framework JavaScript MVC,
+view-ul este reprezentat de șabloane HTML, controller-ul este un obiect JS
+care se ocupă de comunicarea dintre view și model, iar modelul este un obiect JS
+care, de obicei, mapează obiectele din baza de date de pe server la obiecte
+afișate de interfața cu utilizatorul. Desigur, o aplicație ce rulează în browser
+nu are acces în mod direct la baza de date, de aceea această mapare se face apelând un
+API REST\footnote{http://en.wikipedia.org/wiki/Representational\_state\_transfer}.
 
-Această problemă a fost rezolvată prin intermediul
-AJAX\footnote{Asynchronous JavaScript and XML; în aplicațiile moderne
-se utilizează cu preferință JSON (JavasScript Object Notation) în loc de XML,
-dar denumirea a rămas.},
-o tehnică ce permite browserului să facă cereri asincrone către server după ce 
-pagina a fost încărcată, prin intermediul JavaScript.
+\begin{figure}[t]
+  \centering
+    \includegraphics[width=0.5\textwidth]{./MVC}
+  \caption{Interacțiunea dintre componentele MVC}
+\end{figure}
 
-Următoarea etapă în acest proces incremental a fost crearea de 
-\emph{Single-Page Application}\footnote{http://en.wikipedia.org/wiki/Single-page\_application},
-denumite în continuare SPA. Într-un SPA, tot codul HTML, JavaScript și CSS este
-fie descărcat în momentul în care pagina este încărcată prima dată, fie în mod asincron, de obicei ca
-răspuns la acțiunile utilizatorului.
+În continuare enumerăm câteva avantaje ale folosirii unui framework JS pentru
+dezvoltarea de aplicații SPA:
+\begin{itemize}
+  \item Folosirea MVC: un proiect MVC este mai ușor de navigat, este mai ușor
+  de modificat și mai ușor de înțeles. De asemenea, colaborarea dintre
+  designer și programator este ușurată de MVC.
+  \item Viteza de dezvoltare (după depășirea curbei de învățare).
+  \item Ușurința de dezvoltare.
+  \item Diminuarea codului necesar a fi scris.
+\end{itemize}
 
-SPA oferă utilizatorului senzația unei
-aplicații fluide și poate uneori să ofere iluzia că aceasta răspunde la acțiuni
-imediat, fără să mai aștepte răspunsul serverului. Vom vedea în aplicația
-construită pentru această lucrare, de exemplu, că atunci când utilizatorul
-dorește ștergerea unei resurse, această resursă este întâi înlăturată din UI,
-apoi o cerere asincronă îi spune serverului să șteargă resursa din baza de date.
-Desigur, pentru că se comunică cu serverul prin TCP/IP, această comunicare
-poate eșua, caz în care un mesaj de eroare este afișat și resursa reapare în UI,
-dar în mai mult de 90\% din cazuri, când totul merge bine, utilizatorul are
-senzația că resursa este ștearsă instant.
+Bineînțeles, există și dezavantaje:
+\begin{itemize}
+  \item Necesitatea învățării unei tehnologii noi. Ce este și mai trist, este
+  că foarte posibil această tehnologie va fi depășită în doar câțiva ani.
+  \item Unele framework-uri (AngularJS) au o curbă de învățare abruptă.
+  \item Frameworkurile au tendința de a nu suporta browserele mai vechi.
+\end{itemize}
 
-Două companii foarte mari, Google și Facebook,
-au creat fiecare  câte un framework pentru crearea de SPA: AngularJS și React,
-confirmând importanța acestui tip de aplicații. Experiență fluidă pentru utilizator, împreună cu alte avantaje pe care le
-vom discuta în capitolul următor au făcut ca SPA să crească foarte mult în popularitate
-în ultimii ani.
 
+\section{AJAX}
+AJAX este modalitatea "clasică" prin care pot fi create SPA.
+Avantaje:
+\begin{itemize}
+\item Fiind o modalitate mai veche, este cunoscută de mai mulți programatori.
+\item Suport mai bun pentru browserele vechi.
+\end{itemize}
+Dezavantaje:
+\begin{itemize}
+\item Este necesar să se scrie mult cod.
+\item Folosirea MVC este mai dificilă.
+\item Viteză mică de dezvoltare.
+\end{itemize}
+
+\section{WebSocket}
+WebSocket\footnote{http://en.wikipedia.org/wiki/WebSocket} este un protocol
+ce permite comunicare bidirecțională cu serverul. Atunci când clientul
+inițiază comunicarea cu serverul prin HTTP, serverul îi poate cere clientului
+să treacă la WebSocket. Dacă trecerea are loc, atunci serverul îi poate trimite
+notificări clientului, lucru care nu este posibil pe HTTP.
+Performanța WebSocket este mai bună decât AJAX. În plus, soluția este mai elegantă.
+Cu AJAX, clientul face \emph{polling}, adică întreabă serverul la un anumit interval
+de timp dacă informații noi sunt disponibile. Cu WebSocket, nevoia pentru polling
+este eliminată.
+
+WebSocket este un protocol relativ nou și este implementat doar pe browserele moderne.
+Pentru browserele mai vechi există librării JS care simulează WebSocket folosind
+AJAX.
+
+WebSocket și frameworkurile JS pentru SPA nu sunt mutual
+exclusive. De exemplu, Meteor folosește WebSocket atunci când clientul suportă
+acest protocol și \emph{SockJS}\footnote{http://sockjs.org} atunci când protocolul 
+nu este suportat.
+
+\section{Plugin-uri pentru browser}
+\emph{Java Applet}-urile, o tehnologie creată de \emph{Sun Microsystems} 
+(cumpărat de Oracle) au promis prin anii '90 că vor revoluționa modul de dezvoltarea
+al aplicațiilor web, dar nu au reușit să se țină de promisiune. Rata lor de adopție
+a rămas foarte mică.
+
+\emph{Macromedia}, ulterior achiziționat de \emph{Adobe} a
+reușit să facă o treabă mult mai bună cu \emph{Flash}, care a atins o rată de
+adopție mult mai mare, dar această rată este în prezent în continuă scădere. Unul
+din motivele începutului sfârșitului pentru Flash a fost decizia companiilor
+\emph{Google} și \emph{Apple} de a nu suporta plugin-ul pe platformele lor mobile
+(\emph{Android} și \emph{iOS}). În prezent cel mai cunoscut site care folosește
+Flash este YouTube, dar acesta oferă și o alternativă bazată pe HTML5.
+
+\emph{Microsoft} a creat un rival pentru Flash, și anume \emph{Silverlight},
+dar tehnlologia a rămas aproape necunoscută, singurul site mare care a adoptat
+această tehnologie fiind \emph{NetFlix}.
+
+Aceste plugin-uri ușurau crearea de aplicații web complexe pentru dezvoltatori,
+dar desigur că era și un preț de plătit:
+\begin{itemize}
+\item Cerințe mari de resurse pentru calculatorul utilizatorului.
+\item Controlate de o companie.
+\item Closed-source.
+\item Interoperabilitate scăzută (suport scăzut pentru Linux, platforme mobile,
+      browsere mai puțin cunoscute).
+\end{itemize}
+Din fericire, industria web "a decis" într-un mod organic să sprijine 
+\emph{Open Web}\footnote{http://en.wikipedia.org/wiki/Open\_Web}, iar în prezent 
+chiar și companiile din spatele acestor plugin-uri suportă,
+în ceea ce privește web-ul cel puțin, tehnologiile open-source
+și interoperabilitatea.
 
 
