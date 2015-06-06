@@ -42,7 +42,7 @@ al limbajului pentru un programator care știe ce face.
 Mult timp, comunitatea programatorilor
 i-a privit pe programatorii JavaScript ca fiind amatori.
 
-Pe lângă toate astea, JS a fost mereu asociat cu API-ul de manipulare a DOM-ul 
+Pe lângă toate astea, JS a fost mereu asociat cu API-ul de manipulare al DOM-ul 
 (Document Object Model)\footnote{\url{http://en.wikipedia.org/wiki/Document\_Object\_Model}},
 care a fost implementat în mod diferit
 de fiecare browser, lucru care a făcut ca programarea în JS să fie
@@ -90,9 +90,7 @@ repositories pe GitHub și cel mai căutat limbaj de programare
 \section{AngularJS}
 
 În această secțiune voi trece foarte rapid peste componentele
-de bază ale lui AngularJS. Exemplele de cod sunt
-luate din tutorialul oficial AngularJS, ce se găsește la
-\url{https://docs.angularjs.org/tutorial}. Scopul secțiunii 
+de bază ale lui AngularJS. Scopul secțiunii 
 este sublinierea elementelor
 esențiale ale lui Angular: șabloane, directive, controllere,
 servicii.
@@ -123,7 +121,8 @@ Acest array este declarat în \texttt{controllers.js}, linia 6.
 
 În \texttt{controllers.js}, linia 5, \texttt{'Phone'} este pasat
 ca argument al funcției în interiorul unui array. Acest lucru
-îi spune framework-ului să injecteze serviciul \texttt{Phone}.
+îi spune framework-ului să injecteze serviciul \texttt{Phone},
+definit în \texttt{app/js/services.js}, linia 5.
 Acest serviciu se folosește de \texttt{ngResource} pentru a
 crea mai multe metode ce apelează un API REST aflat la adresa
 \texttt{/phones}. Astfel, deși uitându-ne în controller putem
