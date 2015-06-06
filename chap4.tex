@@ -1,0 +1,46 @@
+\chapter{Alte tehnologii folosite în aplicație}
+
+\section{Bootstrap}
+
+\emph{Boostrap}\footnote{\url{http://getbootstrap.com}}, 
+dezvoltat inițial de Mark Otto 
+și Jacob Thornton la Twitter, este un framework ce simplifică stilizarea
+elementelor HTML cum ar fi form-uri și butoane și crearea
+de meniuri de navigație, casete modale etc. De asemenea,
+o parte foarte importantă a framework-ului este crearea aplicațiilor
+\emph{responsive}, ceea ce înseamnă că aplicația este afișată
+corect pe dispozitive cu display-uri de dimensiuni diferite:
+calculatoare, tablete și telefoane.
+
+Folosirea framework-ului este destul de simplă. Este
+suficient să fie adăugate două fișiere din Bootstrap,
+apoi clasele CSS pot fi folosite pentru stilizarea
+elementelor HTML.
+
+
+\section{Bower}
+
+\emph{Bower}\footnote{\url{http://bower.io}} este o unealtă
+folosită pentru managementul dependențelor de pe front-end.
+Bower folosește fișierul \texttt{bower.json} pentru a 
+ști ce trebuie să instaleze.
+
+\lstinputlisting[title=app/bower.json]{chap4-code/bower.json}
+
+Dependențele din \texttt{bower.json} sunt descărcate dintr-un
+repository central în directorul \texttt{static/bower\_components}
+cu comanda \texttt{bower install}.
+
+\section{Git și GitHub}
+
+\emph{Git}\footnote{https://git-scm.com} este un sistem distribuit
+pentru controlul sistemului de reviziuni al fișierelor,
+scris inițial de creatorul kernel-ului Linux, Linus Torvalds.
+GitHub\footnote{http://github.com} este un serviciu
+online ce permite găzduirea repository-urilor Git.
+
+Atât codul aplicației, cât și codul aceastei lucrări, redactată folosind \LaTeX{},
+sunt găzduite pe GitHub la adresele \url{https://github.com/stefan-mihaila/money-keep}
+și \url{https://github.com/stefan-mihaila/thesis}.
+
+
