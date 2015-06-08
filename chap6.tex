@@ -1,0 +1,83 @@
+\chapter{Detalii de implementare}
+
+\section{Structura de directoare}
+
+Aplicația, la nivelul cel mai înalt, are 3 module Python (interpretorul
+Python directoarele ce conțin fișierul gol \texttt{\_\_init\_\_.py} ca
+fiind module):
+\begin{description}
+\item [authentication] este modulul responsabil înregistrare și autentificarea
+utilizatorilor. Acest modul conține modelul ORM al utilizatorului și
+view-urile REST corespunzătoare creării de utilizatori noi și
+autentificării unui utilizator.
+\item [expenses] este modulul ce conține modelul ORM al unuei cheltuieli
+și view-urile REST corespunzătoare operațiilor CRUD asupra
+cheltuielilor.
+\item [money\_keep] este modulul responsabil de configurarea aplicației.
+Conține, printre altele, fișierul de configurare \texttt{settings.py}
+și fișierul ce conține toate rutele aplicației (URL-urile la 
+care aplicația răspunde), texttt{urls.py}.
+\end{description}
+
+Pe lângă aceste module, la nivelul cel mai înalt al aplicației
+mai sunt directoarele:
+
+\begin{description}
+\item [static] conține toate resursele statice: 
+  \begin{itemize}
+  \item componentele instalate cu \emph{Bower}
+  \item CSS-urile customizate ale aplicației
+  \item întreaga aplicație AngularJS, cu toate șabloanele,
+  controllerele, directivele și serviciile ei.
+  \end{itemize}
+\item [templates] conține șabloanele Django. Ele sunt scrise
+folosind sintaxa \emph{Django Template Language} (DTL) și nu trebuie confundate
+cu șabloanele din directorul "static/templates". Șabloanele din
+acest director sunt folosite de Django, iar cele din "static" sunt
+folosite de AngularJS.
+\end{description}
+
+\begin{lstlisting}[title=Structura de directoare a aplicației]
+|-- authentication
+|   |--- migrations
+|-- expenses
+|   |--- migrations
+|-- money_keep
+|-- static
+|   |-- bower_components
+|   |-- css
+|   |-- js
+|   |   |-- authentication
+|   |   |   |-- controllers
+|   |   |   |--- services
+|   |   |-- expenses
+|   |   |   |-- controllers
+|   |   |   |-- directives
+|   |   |   |--- services
+|   |   |-- layout
+|   |   |   |--- controllers
+|   |   |--- utils
+|   |       |-- controllers
+|   |       |--- services
+|   |--- templates
+|       |-- authentication
+|       |-- expenses
+|       |-- layout
+|       |--- utils
+|--- templates
+\end{lstlisting}
+
+
+\section{Autentificarea}
+
+Django are un model folosit în mod standar pentru autentificare,
+dar în această aplicație am ales să nu folosesc acest model pentru
+a avea mai mult control.
+Am creat un alt model, numit \texttt{Account}, care derivă din
+\texttt{AbstractBaseUser} și am adăugat în \texttt{settings.py}
+următoarea linie pentru ca Django să știe că trebuie să folosească
+noul model:
+\begin{lstlisting}[language=python]
+AUTH_USER_MODEL = 'authentication.Account'
+\end{lstlisting}
+
