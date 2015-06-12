@@ -66,18 +66,3 @@ folosite de AngularJS.
 |       |--- utils
 |--- templates
 \end{lstlisting}
-
-
-\section{Autentificarea}
-
-Django are un model folosit în mod standar pentru autentificare,
-dar în această aplicație am ales să nu folosesc acest model pentru
-a avea mai mult control.
-Am creat un alt model, numit \texttt{Account}, care derivă din
-\texttt{AbstractBaseUser} și am adăugat în \texttt{settings.py}
-următoarea linie pentru ca Django să știe că trebuie să folosească
-noul model:
-\begin{lstlisting}[language=python]
-AUTH_USER_MODEL = 'authentication.Account'
-\end{lstlisting}
-
