@@ -66,3 +66,51 @@ folosite de AngularJS.
 |       |--- utils
 |--- templates
 \end{lstlisting}
+
+
+\section{API REST}
+
+Deoarece front-end-ul aplicației este scris cu AngularJS,
+comunicarea dintre front-end și back-end se face
+prin intermediul unui API REST. Acest API REST a fost
+creat cu ajutorul unui plugin Django: 
+\emph{Django REST Framework}\footnote{\url{http://www.django-rest-framework.org}}.
+
+Django REST Framework permite crearea rapidă de API-uri REST pentru 
+aplicațiile Django. Pentru a îl folosi, în aplicație am creat
+câte o clasă de serializare pentru fiecare model 
+ce trebuie serializat (\texttt{Account} și \texttt{Expense}).
+Aceste clase moștenesc din \texttt{rest\_framework.serializers.ModelSerializer}.
+În clasele de serializare specificăm ce câmpuri vrem să fie serializate.
+Clasele de serializare pot fi văzute în "authentication/serializers.py"
+și "expenses/serializers.py".
+
+În afară de clasele de serializare, am creat și permisiuni pentru fiecare
+model. Folosindu-ne de aceste permisiuni, ne asigurăm că un utilizator
+nu poate citi datele altui utilizator. Permisiunile se găsesc
+în fișierele "permissions.py" din modulele "authentication" și
+"expenses".
+
+Având permisiunile și clasele de serializare, folosim clasele
+din rest\_framework pentru a customiza mai departe
+operațiile pe care le dorim: de exemplu pentru filtrarea 
+cheltuielilor după dată, sau pentru a crea un utilizator nou
+stocându-i parola în formă hash.
+
+API-ul creat este următorul:
+\begin{description}
+\item [POST /api/v1/auth/login/] permite logarea unui
+utilizator în aplicație. Parametrii primiți sunt
+adresa de email a utilizatorului și parola.
+\item [POST /api/v1/auth/logout/] deautentifică
+utilizatorul curent.
+\item [POST /api/v1/accounts/] crează un utilizator nou.
+Primește ca parametri numele utilizatorului, parola
+și adresa de email.
+\item [GET api/v1/expenses/] întoarce lista cu toate
+cheltuielile pentru utilizatorul logat în aplicație.
+\item [POST /api/v1/expenses/] adaugă o cheltuială
+nouă.
+\item [DELETE api/v1/expenses/\{:id\}/] șterge cheltuiala
+cu id-ul specificat.
+\end{description}
