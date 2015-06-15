@@ -68,6 +68,29 @@ folosite de AngularJS.
 \end{lstlisting}
 
 
+\section{Module AngularJS}
+
+Pe partea de front-end, aplicația este structurată
+în următoarele module:
+\begin{description}
+\item [authentication] este modulul responsabil de autentificare.
+Acest modul conține serviciul \emph{Authentication} care are metodele
+pentru autentificare, logout și verificarea dacă utilizatorul este
+autentificat.
+\item [expenses] este modulul responsabil de operațiile
+CRUD pentru o cheltuială. Pe lângă serviciul care are apelează
+metodele REST ale back-end-ului, în acest modul sunt definite și directivele
+AngularJS \emph{expense} și \emph{expenses}. Aceste directive
+fac posibilă folosirea în șabloane AngularJS a elementelor HTML
+\texttt{<expense>} și \texttt{<expenses>}.
+\item [layout] este modulul care conține logica de filtrare / căutare
+a cheltuielilor și leagă butoanele din bara de navigare de funcționalitatea
+acestora.
+\item [utils] este un modul care conține logica de printare
+precum și un serviciu utilitar ce se ocupă cu prelucrarea
+obiectelor date / time.
+\end{description} 
+
 \section{API REST}
 
 Deoarece front-end-ul aplicației este scris cu AngularJS,
@@ -114,3 +137,4 @@ nouă.
 \item [DELETE api/v1/expenses/\{:id\}/] șterge cheltuiala
 cu id-ul specificat.
 \end{description}
+
