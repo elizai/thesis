@@ -138,3 +138,49 @@ nouă.
 cu id-ul specificat.
 \end{description}
 
+
+\section{Fluxul aplicației}
+
+Fiind o aplicație SPA ce folosește un framework MVC
+pe back-end și un alt framework MVC pe front-end,
+rutarea URL-urilor are loc la două nivele.
+
+Orice request către aplicație este mai întâi redirecționat
+de URL handler-ul Django. În fișierul \texttt{urls.py} sunt
+configurate toate rutele aplicației. Indiferent ce pagină
+cere utilizatorul, acestuia îi este servit șablonul Django
+\texttt{index.html} ce conține întreaga aplicație AngularJS.
+
+A doua rutare are loc la nivelul AngularJS. Serviciul de autentificare
+din AngularJS verifică dacă utilizatorul este autentificat sau nu.
+Dacă nu este, utilizatorul este redirectat către pagina de autentificare.
+Este important să înțelegem că acest redirect se întâmplă
+doar prin Ajax. AngularJS este cel care cere șablonul HTML
+"login.html" de pe server și îl afișează pe client, fără ca pagina
+să fie reîmprospătată.
+
+\section{Autentificarea}
+
+Autentificarea este pe bază de cookie. Pe pagina de autentificare,
+AngularJS face POST la endpoint-ul "api/v1/auth/login". Dacă
+user-ul și parola se potrivesc, server-ul răspunde cu codul 200 (OK).
+În acest caz AngularJS folosește serviciul \$cookies pentru a reține
+datele de sesiune primite înapoi de la server. Acestea sunt trimise
+până la logout cu fiecare request, astfel serverul știe
+că utilizatorul s-a autentificat în aplicație.
+
+\section{Posibilități de îmbunătățire a aplicației}
+
+Datorită limitărilor de timp, există numeroare posibilități de 
+îmbunătățire și extindere a aplicației. De exemplu:
+\begin{itemize}
+\item Adăugare login cu Facebook. Acesta este așteptat de la
+majoritatea aplicațiilor din ziua de azi, eliminând necesitatea
+utilizatorului de a-și crea un cont pentru fiecare aplicație folosită.
+\item Înlocuirea login-ului pe bază de cookie cu un alt mecanism,
+de exemplu OAuth. Acest lucru decuplează back-end-ul de front-end, 
+astfel API-ul REST ar putea fi folosit
+și de aplicații mobile.
+\item Îmbunătățirea stilurilor CSS.
+\item Filtrarea pe server în loc de client.
+\end{itemize}
