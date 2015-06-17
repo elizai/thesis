@@ -161,6 +161,17 @@ să fie reîmprospătată.
 
 \section{Autentificarea}
 
+Django, prin structura sa modulară, include un modul de autentificare,
+numit \texttt{auth}. Acest modul conține un model, numit \texttt{User}
+ce poate fi folosit de aplicațiile Django pentru autentificare.
+În cazult acestei aplicații, am decis să nu folosesc acest model,
+ci să-mi creez propriul model, ce moștenește din \texttt{AbstractBaseUser},
+model din care moștenește și clasa User.
+În acest mod, am putut modifica logarea standard din Django, bazată
+pe username, cu logarea bazată pe adresă de email.
+
+\lstinputlisting[language=Java, title=authentication/models.py]{./chap6-files/account.py}
+
 Autentificarea este pe bază de cookie. Pe pagina de autentificare,
 AngularJS face POST la endpoint-ul "api/v1/auth/login". Dacă
 user-ul și parola se potrivesc, server-ul răspunde cu codul 200 (OK).
@@ -168,6 +179,62 @@ user-ul și parola se potrivesc, server-ul răspunde cu codul 200 (OK).
 datele de sesiune primite înapoi de la server. Acestea sunt trimise
 până la logout cu fiecare request, astfel serverul știe
 că utilizatorul s-a autentificat în aplicație.
+
+Codul JavaScript ce se ocupă de autentificare este în directorul
+"static/js/authentication". Aici se găsesc controllerele pentru login și
+register și serviciul de autentificare. Șabloanele corespunzătoare
+loginului și funcției de înregistrare utilizator nou sunt în directorul
+"static/templates".
+
+În fișierul \emph{authentication.service.js} este definit serviciul
+AngularJS \emph{Authentication}. Acest serviciu are funcțiile:
+\begin{description}
+\item [register] primește ca parametri email-ul, username-ul și
+parola. Cu acestea, face POST la endpoint-ul \emph{api/v1/accounts}.
+Dacă răspunsul este 200 (OK), ceea ce înseamnă că backendul
+a creat un utilizaor nou cu credențialele trimise,
+serviciul cheamă funcția "login".
+\item [login] ia ca parametrii emailul și parola, cu care
+face post la endpoint-ul 'api/v1/auth/login'. Dacă răspunsul este
+200 (OK) atunci este setat un cookie cu utilizatorul autentificat,
+iar utilizatorului i se afișează pagina cu cheltuielile sale.
+\item [isAuthenticated] verifică dacă a fost setat
+un cookie cu utilizatorul curent. Returnează \texttt{true} dacă 
+utilizatorul s-a autentificat sau \texttt{false} dacă utilizatorul
+nu este autentificat.
+\item [logout] face POST la endpoint-ul 'api/v1/auth/logout' care îi
+spune server-ului să deautentifice utilizatorul curent. După POST 
+funcția \texttt{unauthenticate()} este chemată.
+\item [unauthenticate] șterge utilizatorul autentificat din cookie.
+\end{description}
+
+\lstinputlisting[language=Java, title=static/js/authentication/services/authentication.service.js]{./chap6-files/authentication.service.js}
+
+În șabloanele HTML pentru înregistrarea utilizatorului nou și pentru
+login se găsește câte un form. În momentul în care utilizatorul face
+submit acestui form, este apelată o metodă din controller-ul corespunzător
+(login sau register) care, la rândul său apelează metoda serviciului.
+
+\begin{lstlisting}[language=html, title=static/templates/authentication/register.html]
+<form role="form" ng-submit="vm.register()">
+  <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" 
+             id="email" ng-model="vm.email"
+             placeholder="email" required="" />
+  </div>
+  <!-- ....... -->
+\end{lstlisting}
+
+Prin folosirea directivei "ng-submit", aplicația Angular știe
+că în momentul în care se face submit form-ului, trebuie
+chemată funcția "register()" din controller. Prin folosirea
+directivelor "ng-model", frameworkul crează o legătură
+bidirecțională între textul din elementele "input" HTML
+și proprietățile controllerului. De exemplu, de fiecare
+dată când valoarea inputului "email" se modifică,
+proprietatea "email" este setată pe controller astfel încât
+valoarea ei să reflecte valoarea inputului.
 
 \section{Posibilități de îmbunătățire a aplicației}
 
