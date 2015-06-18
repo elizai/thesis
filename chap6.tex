@@ -170,7 +170,7 @@ model din care moștenește și clasa User.
 În acest mod, am putut modifica logarea standard din Django, bazată
 pe username, cu logarea bazată pe adresă de email.
 
-\lstinputlisting[language=Java, title=authentication/models.py]{./chap6-files/account.py}
+\lstinputlisting[language=python, title=authentication/models.py]{./chap6-files/account.py}
 
 Autentificarea este pe bază de cookie. Pe pagina de autentificare,
 AngularJS face POST la endpoint-ul "api/v1/auth/login". Dacă
@@ -235,6 +235,67 @@ bidirecțională între textul din elementele "input" HTML
 dată când valoarea inputului "email" se modifică,
 proprietatea "email" este setată pe controller astfel încât
 valoarea ei să reflecte valoarea inputului.
+
+
+\section{Operații CRUD}
+
+Pe partea de client, serviciul care se ocupă de operațiile
+CRUD corespunzătoare unui cheltuieli se numește \emph{Expenses}
+și se găsește în fișierul "static/js/expenses/services/expenses.service.js".
+
+\lstinputlisting[title=static/js/expenses/services/expenses.service.js]{./chap6-files/expenses.service.js}
+
+Acest serviciu are metodele:
+\begin{description}
+\item [all] este funcția care face un HTTP GET la enpoint-ul
+"/api/v1/expenses/". Această funcție primește un parametru
+opțional: \emph{week\_contains}, care este un obiect reprezentând
+o dată. Dacă parametrul este specificat, acesta este trimis
+ca parametru GET serverului. Serverul întoarce lista cu toate
+cheltuielile utilizatorului, dacă parametrul "week\_contains"
+nu este specificat, sau o listă cu aferente săptămânii
+din care data din "week\_contains" face parte, dacă parametrul
+este specificat. Funcția întoarce un 
+\emph{Promise}\footnote{\url{http://www.html5rocks.com/en/tutorials/es6/promises/}}
+care este îndeplinit în cazul în care serverul răspunde cu 200 (OK)
+cu lista de cheltuieli returnate de server.
+\item [create] este o funcție care primește ca parametru
+un obiect ce conține detaliile unei cheltuieli (dată,
+titlu, descriere, comentarii) și face un HTTP POST
+la endpoint-ul "api/v1/expenses" cu aceste detalii.
+Serverul crează o cheltuială nouă cu detaliile primite
+și o asociază utilizatorului curent.
+\item [update] este o funcție care primește, ca și create,
+un obiect cu detaliile unei cheltuieli. Spre deosebire de
+obiectul pe care-l primește create, în update obiectul
+trebuie să aibe setat și atributul "id". Funcția face
+HTTP PUT la endpoint-ul '/api/v1/expenses/{id}/',
+unde '{id}' este înlocuit cu "expense.id". Ca urmare
+a acestui apel, server-ul ia din baza de date 
+cheltuiala cu ID-ul specificat în adresă și updatează
+acea cheltuială.
+\item [destroy] este metoda responsabilă cu ștergerea
+unei cheltuieli. Această metodă funcționează ca și update,
+cu diferența că metoda HTTP folosită este DELETE în loc
+de PUT.
+\end{description}
+
+\lstinputlisting[language=python, title=expenses/views.py]{./chap6-files/expenses.py}
+
+Toate aceste metode sunt folosite de controller-ele din
+"static/js/expenses/controllers", și anume: "EditExpenseController",
+"ExpenseController" și "NewExpenseController".
+
+De asemenea, în "static/js/expenses/directives" avem definite două
+directive, și anume: "expenses" și "expense".
+Aceste directive permit folosirea elementelor HTML <expense>
+și <expenses> și fac astfel codul mai modular și concis.
+
+\lstinputlisting[title=static/js/expenses/expenses.directive.js]{./chap6-files/expenses.directive.js}
+\lstinputlisting[title=static/js/expenses/expense.directive.js]{./chap6-files/expense.directive.js}
+\lstinputlisting[language=html, title=static/templates/expenses/expenses.html]{./chap6-files/expenses.html}
+\lstinputlisting[language=html, title=static/templates/expenses/expense.html]{./chap6-files/expense.html}
+
 
 \section{Posibilități de îmbunătățire a aplicației}
 
