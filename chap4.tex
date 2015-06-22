@@ -43,4 +43,69 @@ Atât codul aplicației, cât și codul aceastei lucrări, redactată folosind \
 sunt găzduite pe GitHub la adresele \url{https://github.com/stefan-mihaila/money-keep}
 și \url{https://github.com/stefan-mihaila/thesis}.
 
+\section{API REST (Django REST Framework)}
 
+REST\footnote{\url{https://en.wikipedia.org/wiki/Representational_state_transfer}} (Representational State Transfer)
+este o modalitate
+de comunicare între servicii HTTP. REST a venit ca o alternativă
+la SOAP\footnote{\url{https://en.wikipedia.org/wiki/SOAP}} și 
+WSDL\footnote{\url{https://en.wikipedia.org/wiki/Web\_Services\_Description\_Language}}. 
+
+SOAP și WSDL au încercat să ușureze munca dezvoltatorilor 
+construind abstractizări deasupra
+arhitecturii HTTP. REST a adoptat o altă strategie:
+a introdus conceptul de resurse și a folosit
+metodele HTTP existente pentru a procesa aceste resurse.
+
+Metodele HTTP sunt următoarele:
+\begin{description}
+\item [OPTIONS] este metoda HTTP ce oferă clientului
+posibilitate de a afla ce operații sunt disponibile
+pentru o resursă, sau ce capacități are serverul,
+fără însă a modifica resursa respectivă.
+\item [GET] este metoda HTTP ce oferă detaliile unei resurse.
+Această metodă este sigură și idempotentă.
+\item [HEAD] este o metodă care se comportă ca și GET, cu 
+excepția că serverul nu răspunde cu un BODY la acest request,
+ci întoarce doar HEADER-ele HTTP.
+\item [POST] este metoda HTTP ce creează o resursă nouă.
+Serverul trebuie să răspundă cu 201 (Created) atunci când resursa
+a fost creată cu succes și răspunsul trebuie să conțină
+headerul LOCATION cu URL-ul resursei nou creată.
+\item [PUT] este metoda HTTP folosită pentru a edita
+o resursă. Toate proprietățile resursei trebuie trimise
+de client, iar serverul editează suprascrie proprietățile resursei.
+În cazul în care totul a decurs bine, răspunsul serverului
+trebuie să fie 204 (No Content).
+\item [DELETE] este metoda HTTP ce șterge resursa de pe server.
+\end{description}
+
+Proprietăți metodelor HTTP sunt următoarele:
+\begin{description}
+\item [siguranța] Metodele GET și HEAD sunt considerate
+sigure, deoarece ele nu au efecte secundare, cum este cazul
+metodelor POST, PUT și DELETE.
+\item [idempotența] Metodele GET, HEAD, PUT și DELETE sunt
+idempotente, adică rezultatul este același indiferent
+dacă ele sunt chemate o dată sau de mai multe ori.
+\end{description}
+
+REST se pretează foarte bine arhitecturilor client server.
+În REST, se consideră că există o mapare între URL-uri
+și resurse. Avantajul REST este legat de faptul că acesta folosește
+arhitectura existentă HTTP. De exemplu, pentru că
+se folosesc metodele HTTP standard, resursele accesate
+prin metoda GET pot fi stocate pe CDN-uri pentru acces
+rapid, pentru că răspunsul acestei metode poate fi cacheable.
+
+Django REST Framework este un plugin de Django
+ce permite crearea rapidă de resurse HTTP folosindu-se
+modelele din Django. În plus, endpoint-urile acestui framework
+oferă o interfață web ce ușurează debugging-ul și dezvoltarea
+rapidă.
+
+\begin{figure}[t]
+  \centering
+    \includegraphics[width=1\textwidth]{./chap4-code/rest_framework}
+  \caption{Interfață web REST Framework}
+\end{figure}
