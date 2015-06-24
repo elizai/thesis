@@ -1,0 +1,46 @@
+<form role="form" ng-submit="vm.print()">
+    <div class="form-group">
+        <label for="week">Week</label>
+        <input type="week" id="week" 
+            ng-model="vm.week" required />
+    </div>
+    <div class="form-group">
+        <label for="print" class="sr-only"></label>
+        <button type="submit" id="print">Print</button>
+    </div>
+</form>
+
+<div id="print-area">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Amount</td>
+                <td>Description</td>
+                <td>Comment</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="expense in vm.expenses">
+                <td>
+                    {{ expense.timestamp | date:'mediumDate' }}
+                </td>
+                <td>
+                    {{ expense.timestamp | date:'shortTime' }}
+                </td>
+                <td>
+                    {{ expense.amount | currency }}
+                </td>
+                <td>
+                    {{ expense.description }}
+                </td>
+                <td>
+                    {{ expense.comment }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <strong>Total: </strong>{{ vm.total | currency }}<br>
+    <strong>Average: </strong>{{ vm.average | currency }}
+</div>

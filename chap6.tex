@@ -297,7 +297,70 @@ Aceste directive permit folosirea elementelor HTML <expense>
 \lstinputlisting[language=html, title=static/templates/expenses/expense.html]{./chap6-files/expense.html}
 
 
-\section{Posibilități de îmbunătățire a aplicației}
+\section{Modulele "layout" și "utils"}
+
+În "static/js/layout/controllers" avem două controllere:
+\emph{IndexController} și \emph{NavbarController}.
+
+IndexController "ascultă"
+pe "\$scope" propagarea evenimentelor "expense.created", "expense.deleted"
+și "expenses.filter", iar când unul din aceste evenimente este
+declanșat, se face filtrarea cheltuielilor și variabila
+"vm.expenses" este actualizată.
+
+\lstinputlisting[title=static/js/layout/navbar.controller.js]{./chap6-files/navbar.controller.js}
+
+NavbarController implementează funcțiile accesibile
+din bara de navigație: logout, adăugare cheltuială nouă
+și deschiderea dialogului cu selectarea săptămânii
+pentru printare.
+
+În modulul "utils" se află controllerul PrintController
+și serviciile DateUtils și Snackbar.
+
+PrintController aduce de pe server cheltuielile
+dintr-o anumită săptămână, calculează suma
+și media acelor cheltuieli și le printează.
+
+Șablonul corespunzător acestui controller
+definește un element "div" cu id-ul "print-area",
+ale cărui stiluri sunt definite în styles.css.
+Din CSS, div-ul este ascuns atunci când mediul
+este "screen" și afișat atunci când mediul
+este "print".
+
+\lstinputlisting[title=static/js/utils/controllers/print.controller.js]{./chap6-files/print.controller.js}
+\lstinputlisting[language=html, title=static/templates/utils/print.html]{./chap6-files/print.html}
+\lstinputlisting[title=static/css/styles.css]{./chap6-files/styles.css}
+
+Pe server, obiectele de tipul datetime sunt stocate 
+într-o singură coloană, dar pe client input-urile
+de tipul date sunt separate de cele pentru timp.
+Din acest motiv se folosește serviciul DateUtils
+care face conversia între cele două metode
+de a stoca obiectele pentru datetime.
+
+\lstinputlisting[title=static/js/utils/services/dateutiles.service.js]{./chap6-files/dateutils.service.js}
+
+Pentru afișarea de mesaje către utilizator cu privire la
+operațiile ce se efectuează asincron se folosește
+librăria \emph{SnackbarJS}\footnote{\url{http://fezvrasta.github.io/snackbarjs/}}.
+Această librărie oferă posibilitatea de a afișa mesaje
+ce arată bine din punct de vedere estetic
+în partea din stânga jos a aplicației. Aceste mesaje
+pot fi ascunse cu un simplu click (Figura \ref{fig:snackbar}). Pentru a fi integrată
+librăria într-o aplicație AngularJS, am scris serviciul
+Snackbar.
+
+\begin{figure}[b]
+  \includegraphics[width=1\textwidth]{./chap6-files/snackbar}
+  \caption{Exemple de mesaje Snackbar de pe pagina librăriei javascript}
+  \label{fig:snackbar}
+\end{figure}
+
+\lstinputlisting[title=static/js/utils/services/snackbar.service.js]{./chap6-files/snackbar.service.js}
+
+\section{Posibilități de îmbunătățire ale aplicației}
 
 Datorită limitărilor de timp, există numeroare posibilități de 
 îmbunătățire și extindere a aplicației. De exemplu:
